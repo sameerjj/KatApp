@@ -24,11 +24,13 @@ object NetworkModule {
             .build()
     }
 
+    @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder().baseUrl(Constants.BASE_URL).client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create()).build()
     }
+
 
     @Provides
     fun provideCatApi(retrofit: Retrofit): CatApi {
