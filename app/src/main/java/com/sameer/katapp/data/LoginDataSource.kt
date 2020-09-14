@@ -15,7 +15,7 @@ class LoginDataSource {
             try {
                 Thread.sleep(1000)
                 if (username == Constants.HARCODE_USERNAME && password == Constants.HARCODE_PASSWORD){
-                    val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
+                    val fakeUser = LoggedInUser(username)
                     return@withContext Result.Success(fakeUser)
                 } else {
                     return@withContext Result.Error(IOException("Error logging in"))
