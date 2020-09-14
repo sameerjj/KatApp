@@ -4,6 +4,7 @@ import com.sameer.katapp.Constants
 import com.sameer.katapp.data.Result
 import com.sameer.katapp.model.LoggedInUser
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
@@ -14,7 +15,7 @@ class LoginDataSource {
     suspend fun login(username: String, password: String): Result<LoggedInUser> {
         return withContext(Dispatchers.IO){
             try {
-                Thread.sleep(1000)
+                delay(1000)
                 if (username == Constants.HARCODE_USERNAME && password == Constants.HARCODE_PASSWORD){
                     val fakeUser = LoggedInUser(username)
                     return@withContext Result.Success(fakeUser)
