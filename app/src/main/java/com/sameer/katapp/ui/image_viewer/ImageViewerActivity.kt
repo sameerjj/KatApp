@@ -2,6 +2,7 @@ package com.sameer.katapp.ui.image_viewer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ class ImageViewerActivity : AppCompatActivity() {
     val imageViewerViewModel: ImageViewerViewModel by viewModels()
 
     lateinit var catImageView: ImageView
+    lateinit var nextButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,7 @@ class ImageViewerActivity : AppCompatActivity() {
             setResult(RESULT_OK)
         })
 
-        catImageView.setOnClickListener {
+        nextButton.setOnClickListener {
             imageViewerViewModel.getNewImage()
         }
 

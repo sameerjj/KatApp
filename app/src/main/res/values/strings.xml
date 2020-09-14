@@ -12,4 +12,5 @@
     <string name="login_failed_body">Incorrect username or password</string>
     <string name="ok">OK</string>
     <string name="content_description_cat">cat</string>
+    <string name="next_image">Next Image</string>
 </resources>
