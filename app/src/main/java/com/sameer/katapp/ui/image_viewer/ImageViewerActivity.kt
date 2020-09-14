@@ -22,6 +22,7 @@ class ImageViewerActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_image_viewer_activitiy)
         catImageView = findViewById(R.id.catImageView)
+        nextButton = findViewById(R.id.nextButton)
 
         imageViewerViewModel.catResult.observe(this, Observer {
             val imageResult = it ?: return@Observer
