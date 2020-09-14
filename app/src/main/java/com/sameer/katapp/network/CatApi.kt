@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface CatApi {
     @GET("images/search")
-    suspend fun getRandomCat(): CatImage
+    suspend fun getRandomCatImage(): List<CatImage>
 }
