@@ -31,7 +31,7 @@ object NetworkModule {
             .addConverterFactory(MoshiConverterFactory.create()).build()
     }
 
-
+    @Singleton
     @Provides
     fun provideCatApi(retrofit: Retrofit): CatApi {
         return retrofit.create(CatApi::class.java)

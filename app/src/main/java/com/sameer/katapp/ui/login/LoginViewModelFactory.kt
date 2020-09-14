@@ -2,8 +2,8 @@ package com.sameer.katapp.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.sameer.katapp.data.LoginDataSource
-import com.sameer.katapp.data.LoginRepository
+import com.sameer.katapp.repository.LoginDataSource
+import com.sameer.katapp.repository.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

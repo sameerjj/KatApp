@@ -1,7 +1,8 @@
-package com.sameer.katapp.data
+package com.sameer.katapp.repository
 
 import com.sameer.katapp.Constants
-import com.sameer.katapp.data.model.LoggedInUser
+import com.sameer.katapp.data.Result
+import com.sameer.katapp.model.LoggedInUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException

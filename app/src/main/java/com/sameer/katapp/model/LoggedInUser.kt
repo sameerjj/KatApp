@@ -1,4 +1,4 @@
-package com.sameer.katapp.data.model
+package com.sameer.katapp.model
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

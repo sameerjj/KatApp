@@ -1,9 +1,7 @@
-package com.sameer.katapp.data
+package com.sameer.katapp.repository
 
-import com.sameer.katapp.data.model.LoggedInUser
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
+import com.sameer.katapp.data.Result
+import com.sameer.katapp.model.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and
