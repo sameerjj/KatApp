@@ -1,15 +1,15 @@
 package com.sameer.katapp.ui.login
 
+import android.util.Patterns
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import com.sameer.katapp.repository.LoginRepository
-import com.sameer.katapp.data.Result
-
 import com.sameer.katapp.R
+import com.sameer.katapp.data.Resource
+import com.sameer.katapp.model.LoggedInUser
+import com.sameer.katapp.repository.LoginRepository
 import kotlinx.coroutines.launch
 
 class LoginViewModel @ViewModelInject constructor(val loginRepository: LoginRepository) : ViewModel() {
@@ -17,19 +17,13 @@ class LoginViewModel @ViewModelInject constructor(val loginRepository: LoginRepo
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
+    private val _loginResult = MutableLiveData<Resource<LoggedInUser>>()
+    val loginResult: LiveData<Resource<LoggedInUser>> = _loginResult
 
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
         viewModelScope.launch {
-            val result = loginRepository.login(username, password)
-
-            if (result is Result.Success) {
-                _loginResult.value = LoginResult(success = LoggedInUserView(displayName = result.data.username))
-            } else {
-                _loginResult.value = LoginResult(error = R.string.login_failed)
-            }
+            _loginResult.value = loginRepository.login(username, password)
         }
     }
 

@@ -1,12 +1,13 @@
 package com.sameer.katapp.ui.image_viewer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.sameer.katapp.R
+import com.sameer.katapp.data.Resource
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,10 +27,10 @@ class ImageViewerActivity : AppCompatActivity() {
 
         imageViewerViewModel.catResult.observe(this, Observer {
             val imageResult = it ?: return@Observer
-            if (imageResult.imageUrl != null){
-                showImage(imageResult.imageUrl)
+            when (imageResult){
+                is Resource.Success -> showImage(imageResult.data.imageUrl)
+                is Resource.Error -> TODO()
             }
-            setResult(RESULT_OK)
         })
 
         nextButton.setOnClickListener {

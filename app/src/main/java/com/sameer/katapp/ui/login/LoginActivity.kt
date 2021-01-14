@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sameer.katapp.R
+import com.sameer.katapp.data.Resource
+import com.sameer.katapp.model.LoggedInUser
 import com.sameer.katapp.ui.image_viewer.ImageViewerActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,14 +56,25 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
 
-            loadingView.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
+            if (loginResult is Resource.Loading) {
+                loadingView.visibility = View.VISIBLE
+            } else {
+                loadingView.visibility = View.GONE
             }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+
+            when (loginResult){
+                is Resource.Success -> {
+                    loadingView.visibility = View.GONE
+                    updateUiWithUser(loginResult.data)
+                }
+                is Resource.Loading -> {
+                    loadingView.visibility = View.VISIBLE
+                }
+                is Resource.Error -> {
+                    loadingView.visibility = View.GONE
+                    showLoginFailed(loginResult.message)
+                }
             }
-            setResult(RESULT_OK)
         })
 
         usernameEditText.afterTextChanged {
@@ -97,18 +110,18 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
+    private fun updateUiWithUser(model: LoggedInUser) {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
+        val displayName = model.username
 
         val intent = Intent(this, ImageViewerActivity::class.java)
         startActivity(intent)
     }
 
-    private fun showLoginFailed(@StringRes errorString: Int) {
+    private fun showLoginFailed(errorMessage: String) {
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.login_failed)
-            .setMessage(errorString)
+            .setMessage(errorMessage)
             .setPositiveButton(R.string.ok) { _, _ ->
                 passwordEditText.text.clear()
             }

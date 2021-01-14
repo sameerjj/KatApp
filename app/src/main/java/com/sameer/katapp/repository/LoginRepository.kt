@@ -1,6 +1,6 @@
 package com.sameer.katapp.repository
 
-import com.sameer.katapp.data.Result
+import com.sameer.katapp.data.Resource
 import com.sameer.katapp.model.LoggedInUser
 
 /**
@@ -28,10 +28,10 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    suspend fun login(username: String, password: String): Result<LoggedInUser> {
+    suspend fun login(username: String, password: String): Resource<LoggedInUser> {
         // handle login
         val result = dataSource.login(username, password)
-        if (result is Result.Success) {
+        if (result is Resource.Success) {
             setLoggedInUser(result.data)
         }
 
